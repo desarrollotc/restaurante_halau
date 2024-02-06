@@ -1,0 +1,135 @@
+body {
+    background-image: url("../img/wallpaper-food.webp");
+    background-size: contain;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.nav {
+    display: flex;
+    width: 100vw;
+    justify-content: space-between;
+    padding: 20px 40px 0px 40px;
+    color: white;
+    background-color: #25336d94;
+    align-items: center;
+}
+
+.nav>.iconForm {
+    width: 90px;
+    height: 90px;
+    background-image: url("../img/icon-halau.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor para formularios general */
+.containerForm {
+    width: 100%;
+    height: 500px;
+    max-width: 500px;
+    min-width: 350px;
+    margin: 0% 0% 0% 0%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background-color: #25336daf;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 24px;
+    opacity: 1;
+}
+
+.inputContainer {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputContainer>input {
+    font-size: 20px;
+}
+
+.btnWidth {
+    background-color: #25346D;
+    width: 35%;
+    font-size: 20px;
+}
+
+.btnWidth:hover {
+    background-color: #fff !important;
+    color: #25346D;
+}
+
+.iconForm {
+    width: 110px;
+    height: 110px;
+    background-image: url("../img/icon-halau.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.btnClose {
+    height: 45px;
+    background-color: #25346D;
+    font-size: 18px;
+}
+
+.btnClose:hover {
+    background-color: #fff !important;
+    color: #25346D;
+}
+
+.height75 {
+    height: 75vh !important;
+}
+
+/* Contenedor para datatable de vista pedidos */
+.containerPedido {
+    width: 94vw;
+    height: 76vh;
+    background-color: #25336daf;
+    border-radius: 10px;
+    margin: 3%;
+    font-size: 18px !important;
+    color: #fff;
+}
+
+/* Contenedor datatable */
+.containerTable {
+    margin: 0% 3% 3% 3%;
+    width: 95%;
+    min-height: 90%;
+    max-height: 95% !important;
+}
+
+/* Estilos datatable */
+.wdhMax {
+    max-height: 95% !important;
+    border-radius: 10px !important;
+    overflow: hidden;
+}
+
+/* Deshabilitar el filtro de número de registros del datatable */
+.dataTables_length {
+    display: none !important;
+}
+
+/* Buscador del datatable */
+.dataTables_filter input[type="search"] {
+    border: solid 3px;
+    margin: 10px 0px 10px 5px;
+    border-radius: 10px;
+}

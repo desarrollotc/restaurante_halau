@@ -1,5 +1,5 @@
 <?php
-const SERVERURL="http://localhost/desarrollo_restaurante/";
+const SERVERURL="http://localhost/restaurante_halau/";
 
 const COMPANY="Restaurante";
 

@@ -62,7 +62,7 @@ class OrdenesController extends OrdenesModel
 
     }
 
-    public function Listar_ordenes_Controller($inicio, $registros, $busqueda, $draw, $columnas = [], $orden){
+    public function Listar_ordenes_Controller($inicio, $registros, $busqueda, $draw, $columnas, $orden){
         $registros = MainModel::clean_string($registros);
         $buscar_general = '';
         $buscar_general = $busqueda;
