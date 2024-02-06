@@ -28,11 +28,12 @@ class OrdenesController extends OrdenesModel
         try{
             $query_insertar = OrdenesController::Agregar_orden_Model($datos);
             $query_insertar->execute();
-
+            
             $query_actualizar = OrdenesController::Actualizar_cantidad_menu_Model($datos);
             $query_actualizar->execute();
 
             mysqli_commit($conexion);
+
         }catch(Exception $e){
             mysqli_rollback($conexion);
             echo "Error " . $e->getMessage();
