@@ -148,17 +148,11 @@
                 data: 'id_orden',
 
                 render: (data, type, row) => {
-<<<<<<< HEAD
-
-                    return `<button  type="button" class="btn btn-primary btnClose " id="editb" onclick="ObtenerInfoCx('` + row.id_citas + `','` + row.nombre_paciente_orden + `') ">Gestionar</button>`;
-
-=======
                     if(row.estado_orden == 2){
                     return `<button  type="button" class="btn btn-primary" onclick="ObtenerInfo('` + row.id_orden + `','` + row.cliente + `') ">Gestionar</button>`;
                     }else{
                     return `<button  type="button" class="btn btn-primary" onclick="ObtenerInfo('` + row.id_orden + `','` + row.cliente + `') disabled">Gestionado</button>`;
                     }
->>>>>>> b4213492ef75671bcfcb04f3b6ff0aa56a91b10b
 
                 }
 
