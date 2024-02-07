@@ -81,6 +81,8 @@
         autoWidth: false,
         stateSave: false,
         lengthMenu: false, // Solo mostrar la opción de 10 registros por página
+        "autoWidth": false, // Desactiva el ajuste automático del ancho de la tabla
+        "rowHeight": '50px', // Define el alto de las filas
 
 
 
@@ -131,7 +133,7 @@
 
                 render: (data, type, row) => {
 
-                    return `<button  type="button" class="btn btn-primary " id="editb" onclick="ObtenerInfoCx('` + row.id_citas + `','` + row.nombre_paciente_orden + `') ">Gestionar</button>`;
+                    return `<button  type="button" class="btn btn-primary btnClose " id="editb" onclick="ObtenerInfoCx('` + row.id_citas + `','` + row.nombre_paciente_orden + `') ">Gestionar</button>`;
 
 
                 }

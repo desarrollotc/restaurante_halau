@@ -8,7 +8,7 @@ $cons2 = $cons->Listar_menu_Controller();
 ?>
 <form class="FormularioAjax" method="post" action="<?php echo SERVERURL ?>ajax/OrdenAjax.php">
   <div class="container height75">
-    <div class="containerForm">
+    <div class="containerForm containerGap30">
       <div class="inputContainer">
         <label for="campo1">Email</label>
         <input type="text" name="usuario_orden" class="form-control" value="<?= $_SESSION['nombre_spm']; ?>" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" readonly>

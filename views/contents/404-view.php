@@ -1,3 +1,3 @@
-<div class="container">
-    404
+<div class="container404">
+
 </div>

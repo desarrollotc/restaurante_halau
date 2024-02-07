@@ -10,8 +10,8 @@
       <div class="inputContainer">
         <label for="exampleFormControlTextarea1" class="form-label">Password</label>
         <input type="password" class="form-control" id="clave_log" name="clave_log" placeholder="*********">
-        <button type="button" class="btn btn-primary" id="mostrarContraseña">Mostrar contraseña</button>
       </div><!-- Submit button -->
+      <button type="button" class="btn btn-primary" id="mostrarContraseña">Mostrar contraseña</button>
       <button type="submit " class="btn btn-primary btnWidth">
         Iniciar sesion
       </button>
