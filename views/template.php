@@ -57,6 +57,11 @@
     require_once $View;
     include "./views/inc/Scripts.php";
     //include "./views/inc/Citaerrores_op.php";
+}elseif(end($elem_ultimo_vista)=='gestionarorden-view.php'){
+    include "./views/inc/Navbar.php";
+    require_once $View;
+    include "./views/inc/Scripts.php";
+    //include "./views/inc/Citaerrores_op.php";
 }
     include  './views/inc/LogOut.php';
         }

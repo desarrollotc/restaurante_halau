@@ -2,7 +2,7 @@
 
 class ViewModel{
     protected static function Get_views_model($vistas){
-        $List=["home","facturacion","pedido","cliente","menu"];
+        $List=["home","facturacion","pedido","cliente","menu","gestionarorden"];
         if(in_array($vistas,$List)){
             if(is_file("./views/contents/".$vistas."-view.php")){
                 $contenido = "./views/contents/".$vistas."-view.php";

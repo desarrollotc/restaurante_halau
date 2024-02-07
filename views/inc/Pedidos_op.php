@@ -22,26 +22,26 @@
     //        })
 
     //  }
-    //  const ObtenerInfoCx = (id_citas, nombre_paciente_orden) => {
+     const ObtenerInfo = (id_orden, cliente) => {
 
 
-    //        Swal.fire({
-    //            title: 'Desea editar al usuario ' +  nombre_paciente_orden + '?',
-    //            showDenyButton: true,
-    //            confirmButtonText: 'Si',
-    //            denyButtonText: `No`,
-    //        }).then((result) => {
+           Swal.fire({
+               title: 'Desea gestionar la orden del cliente ' +  cliente + '?',
+               showDenyButton: true,
+               confirmButtonText: 'Si',
+               denyButtonText: `No`,
+           }).then((result) => {
 
-    //            /* Read more about isConfirmed, isDenied below */
-    //            if (result.isConfirmed) {
+               /* Read more about isConfirmed, isDenied below */
+               if (result.isConfirmed) {
 
-    //                window.location.href='<?php echo SERVERURL ?>editarpaciente/'+ id_citas ;
+                   window.location.href='<?php echo SERVERURL ?>gestionarorden/'+ id_orden ;
 
-    //            }
+               }
 
-    //        })
+           })
 
-    //     }
+        }
     //     const Cambiarestado = (id_usuario, nombre_usuario, estado_usuario) => {
 
 
@@ -102,6 +102,11 @@
                 visible: false
             },
             {
+                data: 'numero_cliente_orden',
+                name: 'numero_cliente_orden'
+                
+            },
+            {
                 data: 'cliente',
                 name: 'cliente'
             },
@@ -127,14 +132,33 @@
                 }
 
             },
+            {
+                data: 'hora_pedido_orden',
+                render: (data, type, row) => {
+                    if(!row.hora_recogida_orden){
+                        return "Sin recoger";
+                    }else{
+                        return row.hora_recogida_orden;
+                    }
+                }
+
+            },
 
             {
                 data: 'id_orden',
 
                 render: (data, type, row) => {
+<<<<<<< HEAD
 
                     return `<button  type="button" class="btn btn-primary btnClose " id="editb" onclick="ObtenerInfoCx('` + row.id_citas + `','` + row.nombre_paciente_orden + `') ">Gestionar</button>`;
 
+=======
+                    if(row.estado_orden == 2){
+                    return `<button  type="button" class="btn btn-primary" onclick="ObtenerInfo('` + row.id_orden + `','` + row.cliente + `') ">Gestionar</button>`;
+                    }else{
+                    return `<button  type="button" class="btn btn-primary" onclick="ObtenerInfo('` + row.id_orden + `','` + row.cliente + `') disabled">Gestionado</button>`;
+                    }
+>>>>>>> b4213492ef75671bcfcb04f3b6ff0aa56a91b10b
 
                 }
 

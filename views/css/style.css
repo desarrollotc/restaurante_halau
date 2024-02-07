@@ -100,7 +100,11 @@ body {
 
 .height75 {
     height: 75vh !important;
+<<<<<<< HEAD
     margin-top: 20px;
+=======
+    margin-top: 30px;
+>>>>>>> b4213492ef75671bcfcb04f3b6ff0aa56a91b10b
 }
 
 /* Contenedor para datatable de vista pedidos */
