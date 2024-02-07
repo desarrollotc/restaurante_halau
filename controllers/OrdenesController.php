@@ -21,19 +21,26 @@ class OrdenesController extends OrdenesModel
     }
 
 
-    public function Orden_final_Controller($datos){
+    public function Orden_final_Controller($datos,$codigo){
         $conexion = mysqli_connect("localhost", "root", "", "drestaurante");
         mysqli_begin_transaction($conexion);
 
         try{
-            $query_insertar = OrdenesController::Agregar_orden_Model($datos);
+            $query_insertar = OrdenesController::Agregar_orden_Model($datos,$codigo);
             $query_insertar->execute();
             
             $query_actualizar = OrdenesController::Actualizar_cantidad_menu_Model($datos);
             $query_actualizar->execute();
 
             mysqli_commit($conexion);
+            if($conexion){
+                $destinatario = $datos['correo_cliente'];
+                $asunto = "Código De Verificación";
+                $mensaje = "Prueba de envio codigo de correo.
+                            El codigo de verificacion es: " . $codigo;
+                            echo $this->Enviar_correo_orden_Controller($destinatario,$asunto,$mensaje);
 
+            }
         }catch(Exception $e){
             mysqli_rollback($conexion);
             echo "Error " . $e->getMessage();
@@ -205,15 +212,16 @@ class OrdenesController extends OrdenesModel
             //
             $sql_general = ' AND 
             (
-                usuario_orden LIKE "%' . $busqueda . '%"  OR
-            nombre_menu LIKE "%' . $busqueda . '%"   
+                usuarios.nombre_usuario LIKE "%' . $busqueda . '%"  OR
+            nombre_menu LIKE "%' . $busqueda . '%"   OR 
+            numero_cliente_orden LIKE "%' . $busqueda . '%" 
              ) ';
             //
 
 
 
             //
-            $consulta = 'SELECT SQL_CALC_FOUND_ROWS ordenes.id_orden as id_orden, ordenes.usuario_orden as cliente, menu.nombre_menu, ordenes.hora_pedido_orden, ordenes.estado_orden FROM `ordenes` JOIN `menu` ON ordenes.menu_orden = menu.id_menu WHERE ordenes.id_orden != 0
+            $consulta = 'SELECT SQL_CALC_FOUND_ROWS ordenes.id_orden as id_orden, ordenes.numero_cliente_orden, usuarios.nombre_usuario as cliente, menu.nombre_menu, ordenes.hora_pedido_orden, ordenes.estado_orden, ordenes.hora_recogida_orden FROM `ordenes` JOIN `menu` ON ordenes.menu_orden = menu.id_menu JOIN usuarios ON ordenes.usuario_orden = usuarios.id_usuario WHERE ordenes.id_orden != 0
             ' . $sql_general . ' ' . $consulta_columnas . ' ' .$acumOrdenQuery. ' LIMIT ' . $inicio . ',' . $registros;   
 
             //
@@ -221,7 +229,7 @@ class OrdenesController extends OrdenesModel
 
         } else {
             //
-            $consulta = 'SELECT SQL_CALC_FOUND_ROWS ordenes.id_orden as id_orden, ordenes.usuario_orden as cliente, menu.nombre_menu, ordenes.hora_pedido_orden, ordenes.estado_orden FROM `ordenes` JOIN `menu` ON ordenes.menu_orden = menu.id_menu WHERE ordenes.id_orden != 0
+            $consulta = 'SELECT SQL_CALC_FOUND_ROWS ordenes.id_orden as id_orden, ordenes.numero_cliente_orden, usuarios.nombre_usuario as cliente, menu.nombre_menu, ordenes.hora_pedido_orden, ordenes.estado_orden, ordenes.hora_recogida_orden FROM `ordenes` JOIN `menu` ON ordenes.menu_orden = menu.id_menu JOIN usuarios ON ordenes.usuario_orden = usuarios.id_usuario WHERE ordenes.id_orden != 0
                 ' . $consulta_columnas . ' '.$acumOrdenQuery .' LIMIT ' . $inicio . ',' . $registros; 
             //
             
@@ -253,10 +261,12 @@ class OrdenesController extends OrdenesModel
 
             $array_final['data'][] = array(
                 'id_orden' => $row['id_orden'],
+                'numero_cliente_orden' => $row['numero_cliente_orden'],
                 'cliente' => $row['cliente'],
                 'nombre_menu'=> $row['nombre_menu'],
                 'hora_pedido_orden'=> $row['hora_pedido_orden'],
-                'estado_orden'=> $row['estado_orden']
+                'estado_orden'=> $row['estado_orden'],
+                'hora_recogida_orden'=> $row['hora_recogida_orden']
             );
         }
 
@@ -283,7 +293,7 @@ class OrdenesController extends OrdenesModel
 
 
         
-               $mail->setFrom('enviadodecorreos@gmail.com','Carlos');
+               $mail->setFrom('enviadodecorreos@gmail.com','Medio de envio de correos');
                $mail->addAddress($destinatario);
                $mail->Subject = $asunto;
                $mail->Body    = $mensaje;
@@ -291,7 +301,6 @@ class OrdenesController extends OrdenesModel
                 $mail->Encoding = 'base64';
 
                $mail->send();
-               echo 'El correo ha sido enviado exitosamente.';
             }catch(Exception $e){
                 echo 'Error al enviar el correo: ', $mail->ErrorInfo;
             }
@@ -299,35 +308,64 @@ class OrdenesController extends OrdenesModel
     }
 
 
-    public function Listar_citas_Controller2(){
-        $con_ora = MainModel::conectar_oracle();
-        $alter = "ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY/MM/DD HH24:MI:SS'";
-        $stid = oci_parse($con_ora, $alter);
-        oci_execute($stid);
-
-
-        $queryOracle = "select nitnit,nitnom,nitmai
-        from conit
-        where nitact = 'S'
-        and nitnit = '1007622413' ";
-        
-        $consulta = oci_parse($con_ora, $queryOracle);
-        oci_execute($consulta);
-        $numColumnas = oci_num_fields($consulta);
-
-        // Recorrer los resultados dinámicamente
-$cont = 0;
-        while ($fila = oci_fetch_assoc($consulta)) {
-            $cont++;
-            // Imprimir los valores de cada columna
-            for ($i = 1; $i <= $numColumnas; $i++) {
-                 $nombreColumna = oci_field_name($consulta, $i);
-                $valorColumna = $fila[$nombreColumna];
-                echo "$nombreColumna: $valorColumna<br>";
-                
-            }
-            echo $cont;
+    public function Listar_editar_orden_Controller($datos){
+        $asd = [];
+        $sqli = new OrdenesModel();
+        $sql = $sqli::Listar_editar_orden_Model($datos)->fetchAll();
+        foreach ($sql as $row){
+            $asd=[
+                'id_orden' => $row['id_orden'],
+                'numero_cliente_orden' => $row['numero_cliente_orden'],
+                'cliente' => $row['cliente'],
+                'nombre_menu'=> $row['nombre_menu'],
+                'hora_pedido_orden'=> $row['hora_pedido_orden']
+            ]; 
         }
+        return $asd;
     }
 
+    public function Validar_gestionar_orden_Controller($datos){
+        $sqli = new OrdenesModel();
+        $sql = $sqli::Validar_gestionar_orden_Model($datos)->fetchAll();    
+        if(!empty($sql)){
+            $sql3 = $sqli::Gestionar_orden_Model($datos);
+            $sql3->execute();
+             if($sql3->rowCount() ==  1){
+                $alerta=[
+                    "Alerta"=>'limpiar',
+                    "Titulo"=>'Gestionado',
+                    "Texto"=>"Orden gestionada.",
+                    "Icono"=>'success' ,
+                    "URL"=>SERVERURL.'pedido/'
+    
+                  ];
+             }else{
+                $alerta=[
+                    "Alerta"=>'limpiar',
+                    "Titulo"=>'Error!',
+                    "Texto"=>"No se ha podido gestionar la orden.",
+                    "Icono"=>'error' ,
+                    "URL"=>SERVERURL.'gestionarorden/' . $datos['id_orden']
+    
+                  ];
+             }
+        }else{
+            $alerta=[
+                "Alerta"=>'limpiar',
+                "Titulo"=>'Error!',
+                "Texto"=>"El código es incorrecto.",
+                "Icono"=>'error' ,
+                "URL"=>SERVERURL.'gestionarorden/' . $datos['id_orden']
+
+              ];
+        }
+         echo  json_encode($alerta);
+    }
+
+    public function Validar_orden_repedita_Controller($datos){
+        $result = OrdenesModel::Validar_orden_repedita_Model($datos);  
+        $result->execute();
+        $resultado = $result->fetchAll();
+        return $resultado;
+    }
 }

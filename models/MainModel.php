@@ -54,14 +54,14 @@ class MainModel{
 
 
  protected static function generate_cod_random(){
-    $random2 = 0;
-     for($i=1;$i<=6;$i++){
-         $random=rand(0,9);
-         $random2 .= $random;
-     }
-
+    $random = 0;
+    //  for($i=1;$i<=6;$i++){
+    //      $random=rand(0,9);
+    //      $random2 .= $random;
+    //  }
+        $random = rand(000001,999999);
      
-     return $random2;
+     return $random;
  }
 
 
