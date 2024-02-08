@@ -22,26 +22,26 @@
     //        })
 
     //  }
-     const ObtenerInfo = (id_orden, cliente) => {
+    //  const ObtenerInfo = (id_orden, cliente) => {
 
 
-           Swal.fire({
-               title: 'Desea gestionar la orden del cliente ' +  cliente + '?',
-               showDenyButton: true,
-               confirmButtonText: 'Si',
-               denyButtonText: `No`,
-           }).then((result) => {
+    //        Swal.fire({
+    //            title: 'Desea gestionar la orden del cliente ' +  cliente + '?',
+    //            showDenyButton: true,
+    //            confirmButtonText: 'Si',
+    //            denyButtonText: `No`,
+    //        }).then((result) => {
 
-               /* Read more about isConfirmed, isDenied below */
-               if (result.isConfirmed) {
+    //            /* Read more about isConfirmed, isDenied below */
+    //            if (result.isConfirmed) {
 
-                   window.location.href='<?php echo SERVERURL ?>gestionarorden/'+ id_orden ;
+    //                window.location.href='<?php echo SERVERURL ?>gestionarorden/'+ id_orden ;
 
-               }
+    //            }
 
-           })
+    //        })
 
-        }
+    //     }
     //     const Cambiarestado = (id_usuario, nombre_usuario, estado_usuario) => {
 
 
@@ -88,7 +88,7 @@
 
         /**************************** */
         ajax: {
-            url: '<?php echo SERVERURL ?>ajax/ListarpedidosAjax.php',
+            url: '<?php echo SERVERURL ?>ajax/ListarhistorialAjax.php',
             type: 'POST',
 
         },
@@ -101,62 +101,31 @@
                 visible: false
             },
             {
-                data: 'numero_cliente_orden',
-                name: 'numero_cliente_orden'
+                data: 'nombre_usuario',
+                name: 'nombre_usuario'
                 
-            },
-            {
-                data: 'cliente',
-                name: 'cliente'
             },
             {
                 data: 'nombre_menu',
                 name: 'nombre_menu'
             },
-
             {
                 data: 'hora_pedido_orden',
                 name: 'hora_pedido_orden'
-
             },
-            {
-                data: 'estado_orden',
-                render: (data, type, row) => {
-                    if (row.estado_orden == 2) {
-                        return `Pendiente`;
-                    } else {
-                        return `Reclamado`;
-                    }
 
+            {
+                data: 'hora_recogida_orden',
+                render: (data, type, row) => {
+                if(row.hora_recogida_orden){
+                    return row.hora_recogida_orden;
+                }else{
+                    return "No recogido";
                 }
-
-            },
-            {
-                data: 'hora_pedido_orden',
-                render: (data, type, row) => {
-                    if(!row.hora_recogida_orden){
-                        return "Sin recoger";
-                    }else{
-                        return row.hora_recogida_orden;
-                    }
-                }
-
-            },
-
-            {
-                data: 'id_orden',
-
-                render: (data, type, row) => {
-                    if(row.estado_orden == 2){
-                    return `<button  type="button" class="btn btn-primary" onclick="ObtenerInfo('` + row.id_orden + `','` + row.cliente + `') ">Gestionar</button>`;
-                    }else{
-                    return `<button  type="button" class="btn btn-primary" onclick="ObtenerInfo('` + row.id_orden + `','` + row.cliente + `') disabled">Gestionado</button>`;
-                    }
 
                 }
 
             }
-
 
         ]
 

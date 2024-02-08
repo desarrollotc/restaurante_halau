@@ -49,8 +49,8 @@ class OrdenesController extends OrdenesModel
         if($query_insertar->rowCount()>0 && $query_actualizar->rowCount()>0){
             $alerta=[
                 "Alerta"=>'limpiar',
-                "Titulo"=>'Editado!',
-                "Texto"=>"Se ha editado correctamente",
+                "Titulo"=>'Agregado!',
+                "Texto"=>"Se ha enviado el pedido correctamente",
                 "Icono"=>'success' ,
                 "URL"=>SERVERURL.'cliente/'
 
@@ -71,6 +71,9 @@ class OrdenesController extends OrdenesModel
     }
 
     public function Listar_ordenes_Controller($inicio, $registros, $busqueda, $draw, $columnas, $orden){
+
+        
+
         $registros = MainModel::clean_string($registros);
         $buscar_general = '';
         $buscar_general = $busqueda;
