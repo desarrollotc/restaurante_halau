@@ -150,3 +150,37 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.containerGestionOrden {
+    width: 43vw;
+    height: 95%;
+    background-color: #25336daf;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 27px;
+}
+
+.containerFormsGeneral {
+    width: 100vw;
+    height: 82vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.GestionOrden{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    align-items: center;
+}
+
+.GestionOrden > .btnClose{
+    width: 40% !important;
+}
