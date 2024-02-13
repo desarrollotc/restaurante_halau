@@ -10,7 +10,7 @@ $cons = new OrdenesController();
 // print_r($_POST);
 
 $fecha = getdate();
-if($fecha['hours'] <= 23 && $fecha['hours'] >= 7){
+if($fecha['hours'] <= 10 && $fecha['hours'] >= 7){
     $validado = $cons->Validar_orden_repedita_Controller($_POST);
 if(!empty($validado)){
     $alerta=[

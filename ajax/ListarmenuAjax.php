@@ -3,11 +3,11 @@
 $peticionAjax=true;
 
 require_once '../config/APP.php';
-
+include "../controllers/MenuController.php";
+        $insususarios = new MenuController();
 if(isset($_POST['draw'])){
     if(array_key_exists('draw',$_POST)){
-        include "../controllers/MenuController.php";
-        $insususarios = new MenuController(); 
+         
 
         $inicio=$_POST['start'];
         $registros=$_POST['length'];
@@ -29,6 +29,7 @@ if(isset($_POST['draw'])){
        echo json_encode($obtenercita);
 
     }
-
+}else{
+    echo $resultado = $insususarios->Actualizar_menu_Controller($_POST);
 
 }

@@ -1,67 +1,92 @@
 <script>
-    //  function Botonaceptar(id_cita, nombre_paciente_orden){
-    // var lista =document.getElementById("motivo"); 
-    // console.log(lista.value);
-    // console.log(id_cita);
-    // Swal.fire({
-    //            title: 'Desea gestionar al paciente ' +  nombre_paciente_orden + '?',
-    //            showDenyButton: true,
-    //            confirmButtonText: 'Si',
-    //            denyButtonText: `No`,
-    //        }).then((result) => {
+    function Botonaceptar(id_menu, nombre_menu, estado_menu) {
+        var lista = document.getElementById("motivo");
+        Swal.fire({
+            title: 'Desea cambiar el estado de ' + nombre_menu + '?',
+            showDenyButton: true,
+            confirmButtonText: 'Si',
+            denyButtonText: `No`,
+        }).then((result) => {
 
-    //            /* Read more about isConfirmed, isDenied below */
-    //            if (result.isConfirmed) {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
 
-    //                window.location.href='<?php echo SERVERURL ?>estadosoporte/'+ id_cita + '/' + lista.value ;
+                window.location.href = '<?php echo SERVERURL ?>cambioestado/' + id_menu + '/' + estado_menu;
 
-    //            }else{
-    //                     location.reload();
+            }
+
+        })
+
+    }
+
+    const ObtenerInfo = (id_menu, nombre_menu) => {
+
+
+        Swal.fire({
+            title: 'Desea editar la información de ' + nombre_menu + '?',
+            showDenyButton: true,
+            confirmButtonText: 'Si',
+            denyButtonText: `No`,
+        }).then((result) => {
+            var id_result = btoa(JSON.stringify(id_menu))
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                id_result = id_result.replaceAll('=', '');
+                window.location.href = '<?php echo SERVERURL ?>editarmenu/' + encodeURIComponent(id_result);
+
+            }
+
+        })
+
+    }
+
+
+
+    // const ObtenerInfo = (id_menu, nombre_menu) => {
+    //     var lista = document.getElementById("cantidad");
+    //     console.log(lista.value);
+    //     Swal.fire({
+    //         title: 'Desea ingresar esta cantidad sobre ' + nombre_menu + '?',
+    //         showDenyButton: true,
+    //         confirmButtonText: 'Si',
+    //         denyButtonText: `No`,
+    //     }).then((result) => {
+    //         console.log(lista.value);
+    //         /* Read more about isConfirmed, isDenied below */
+    //         if (result.isConfirmed) {
+    //             console.log(lista.value);
+    //         var datoss = {
+    //             id: id_menu,
+    //             cantidad: lista.value
+    //         };
+    //         console.log(datoss);
+    //         var cantidadJSON = JSON.stringify(datoss);
+
+    //             fetch('ajax/ListarmenuAjax.php',{
+    //                 method: 'POST',
+    //                 headers:{
+    //                     'Content-Type': 'application/json'
+    //                 },
+    //                 body:cantidadJSON
+    //             })
+
     //         }
 
-    //        })
+    //     })
 
-    //  }
-     const ObtenerInfo = (id_orden, cliente) => {
+    // }
 
+    let search = 'search'
+    let datos = new FormData();
+    datos.append('draw', 'draw');
+    datos.append('start', '0');
+    datos.append('length', '0');
+    datos.append('search[value]', {
+        value: 0
+    });
+    datos.append('draw', 'draw');
+    datos.append('order', 1);
 
-           Swal.fire({
-               title: 'Desea gestionar la orden del cliente ' +  cliente + '?',
-               showDenyButton: true,
-               confirmButtonText: 'Si',
-               denyButtonText: `No`,
-           }).then((result) => {
-
-               /* Read more about isConfirmed, isDenied below */
-               if (result.isConfirmed) {
-
-                   window.location.href='<?php echo SERVERURL ?>gestionarorden/'+ id_orden ;
-
-               }
-
-           })
-
-        }
-    //     const Cambiarestado = (id_usuario, nombre_usuario, estado_usuario) => {
-
-
-    //         Swal.fire({
-    //             title: 'Desea cambiar el estado del usuario ' +  nombre_usuario + '?',
-    //             showDenyButton: true,
-    //             confirmButtonText: 'Si',
-    //             denyButtonText: `No`,
-    //         }).then((result) => {
-
-    //             /* Read more about isConfirmed, isDenied below */
-    //             if (result.isConfirmed) {
-
-    //                 window.location.href='<?php echo SERVERURL ?>Estado/'+ id_usuario + '/' + estado_usuario;
-
-    //             }
-
-    //         })
-
-    //      }
 
     var tabla = new DataTable('#tabla_inc', {
 
@@ -74,160 +99,102 @@
         },
         /**************************** */
         responsive: true,
-        serverSide: true,
-        processing: true,
+        // serverSide: true,
+        // processing: true,
         fixedColumns: true,
         fixedHeader: true,
         autoWidth: false,
         stateSave: false,
         lengthMenu: false, // Solo mostrar la opción de 10 registros por página
-        "autoWidth": false, // Desactiva el ajuste automático del ancho de la tabla
-        "rowHeight": '50px', // Define el alto de las filas
+        autoWidth: false, // Desactiva el ajuste automático del ancho de la tabla
+        rowHeight: '50px', // Define el alto de las filas
 
-
-
-        /**************************** */
-        ajax: {
-            url: '<?php echo SERVERURL ?>ajax/ListarmenuAjax.php',
-            type: 'POST',
-
-        },
         columns: [
 
 
             {
-                data: 'id_orden',
-                name: 'id_orden',
+                data: 'id_menu',
+                name: 'id_menu',
                 visible: false
-            },
-            {
-                data: 'numero_cliente_orden',
-                name: 'numero_cliente_orden'
-                
-            },
-            {
-                data: 'cliente',
-                name: 'cliente'
             },
             {
                 data: 'nombre_menu',
                 name: 'nombre_menu'
-            },
-
-            {
-                data: 'hora_pedido_orden',
-                name: 'hora_pedido_orden'
 
             },
             {
-                data: 'estado_orden',
+                data: 'precio_menu',
+                name: 'precio_menu'
+            },
+            {
+                data: 'cantidad_menu',
+                name: 'cantidad_menu'
+
+            },
+            {
+                data: 'estado_menu',
+
                 render: (data, type, row) => {
-                    if (row.estado_orden == 2) {
-                        return `Pendiente`;
+                    if (row.estado_menu == 1) {
+                        row.estado_menu = 2;
+                        return `<button  type="button" class="btn btn-success" id="motivo" onclick="Botonaceptar('` + row.id_menu + `','` + row.nombre_menu + `','` + row.estado_menu + `')">Activo</button>`;
                     } else {
-                        return `Reclamado`;
+                        row.estado_menu = 1;
+                        return `<button  type="button" class="btn btn-warning" id="motivo" onclick="Botonaceptar('` + row.id_menu + `','` + row.nombre_menu + `','` + row.estado_menu + `')">Inactivo</button>`;
                     }
 
                 }
 
             },
             {
-                data: 'hora_pedido_orden',
+                data: 'id_menu',
                 render: (data, type, row) => {
-                    if(!row.hora_recogida_orden){
-                        return "Sin recoger";
-                    }else{
-                        return row.hora_recogida_orden;
-                    }
+                    return `<button  type="button" class="btn btn-primary" onclick="ObtenerInfo('` + row.id_menu + `','` + row.nombre_menu + `')">Editar</button>`;
                 }
-
-            },
-
-            {
-                data: 'id_orden',
-
-                render: (data, type, row) => {
-                    if(row.estado_orden == 2){
-                    return `<button  type="button" class="btn btn-primary" onclick="ObtenerInfo('` + row.id_orden + `','` + row.cliente + `') ">Gestionar</button>`;
-                    }else{
-                    return `<button  type="button" class="btn btn-primary" onclick="ObtenerInfo('` + row.id_orden + `','` + row.cliente + `') disabled">Gestionado</button>`;
-                    }
-
-                }
-
             }
-
-
         ]
 
     });
-    document.querySelectorAll('input.toggle-vis-programada').forEach((el) => {
-        el.addEventListener('click', function(e) {
-            //e.preventDefault();
 
-            let columnIdx = e.target.getAttribute('data-column');
-            let column = tabla.column(columnIdx);
+    $(tabla).ready(() => {
+        $.ajax({
+            url: "<?php echo SERVERURL; ?>ajax/ListarmenuAjax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: 'POST',
+            type: 'POST'
+        }).done((result) => {
+            let data = JSON.parse(result);
+            console.log(data);
 
-            // Toggle the visibility
-            column.visible(!column.visible());
-        });
-    });
-
-    $(function() {
-        $('#alertaPuedeConsultar').hide();
-        //let start = moment().subtract(29, 'days');
-        let start = moment();
-        let end = moment();
-
-        // establecer información en el input 
-        function cb(start, end) {
-            let startParam = start.format('YYYY-MM-DD');
-            let endParam = end.format('YYYY-MM-DD');
-            tabla.columns(7).search(startParam + ' ' + endParam).draw();
-            $('#inputRangoCirugiasPendientes span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            //$('#inputRangoCirugiasPendientes').data('daterangepicker').remove()
-        }
-
-        $('#inputRangoCirugiasPendientes').daterangepicker({
-            startDate: start,
-            endDate: end,
-            ranges: {
-                'Citas hoy': [moment(), moment()],
-                'Citas ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Citas Ultimos 7 Días': [moment().subtract(6, 'days'), moment()],
-                'Citas Ultimos 30 días': [moment().subtract(29, 'days'), moment()],
-                'Citas Este Mes': [moment().startOf('month'), moment().endOf('month')],
-                'Citas mes pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-            },
-            "locale": {
-                "applyLabel": "Aceptar",
-                "cancelLabel": "Canelar",
-                "fromLabel": "Desde",
-                "toLabel": "Hasta",
-                "customRangeLabel": "Elegir otra fecha"
-            }
-
-
-
-        }, cb);
-
-
-        console.log(start.format('YYYY-MM-DD') + ' ' + end.format('YYYY-MM-DD'));
-
-        cb(start, end);
-
-
-
+            tabla.clear().rows.add(data).draw();
+        })
     })
 
+    setInterval(() => {
 
-    const Opcionerror = () => {
-        $('#contenedorerror').removeClass('visually-hidden');
-        $('#Motivo').attr("required", true); // syntax
-    }
 
-    const Opcionocultarerror = () => {
-        $('#contenedorerror').addClass('visually-hidden');
-        $('#Motivo').attr("required", false); // syntax
-    }
+
+
+
+
+        $.ajax({
+            url: "<?php echo SERVERURL; ?>ajax/ListarmenuAjax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: 'POST',
+            type: 'POST'
+        }).done((result) => {
+            let data = JSON.parse(result);
+            console.log(data);
+
+            tabla.clear().rows.add(data).draw();
+        })
+
+
+    }, 10000);
 </script>

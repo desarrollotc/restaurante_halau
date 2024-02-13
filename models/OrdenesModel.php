@@ -29,7 +29,7 @@ class OrdenesModel extends MainModel
 
     protected static function Listar_editar_orden_Model($datos){
         $sql = MainModel::conectar()->prepare("SELECT ordenes.id_orden as id_orden, ordenes.numero_cliente_orden, usuarios.nombre_usuario as cliente, menu.nombre_menu, ordenes.hora_pedido_orden, ordenes.estado_orden FROM `ordenes` JOIN `menu` ON ordenes.menu_orden = menu.id_menu JOIN `usuarios` ON ordenes.usuario_orden = usuarios.id_usuario  WHERE ordenes.id_orden = :id_orden");
-        $sql->bindParam(":id_orden", $datos[1]);
+        $sql->bindParam(":id_orden", $datos);
         $sql->execute();
         return $sql;
     }

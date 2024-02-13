@@ -3,9 +3,10 @@ require_once './config/APP.php';
 require_once './controllers/OrdenesController.php';
 $cons = new OrdenesController();
 $Id_usuario = explode('/', $_GET['views']);
-$cons2 = $cons->Listar_editar_orden_Controller($Id_usuario);
-?>
-
+$datos1 = base64_decode($Id_usuario[1]);
+$datos2 = json_decode($datos1);
+$cons2 = $cons->Listar_editar_orden_Controller($datos2);
+if(!empty($cons2)){ ?>
 <div class="containerFormsGeneral">
   <div class="containerGestionOrden">
     <form class="FormularioAjax GestionOrden" method="POST" action="<?php echo SERVERURL ?>ajax/GestionarOrdenAjax.php">
@@ -25,3 +26,9 @@ $cons2 = $cons->Listar_editar_orden_Controller($Id_usuario);
     </form>
   </div>
 </div>
+
+<?php 
+}else{
+    echo "<script>  window.location.href='".SERVERURL."pedido/'; </script>";    
+}
+?>

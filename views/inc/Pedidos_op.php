@@ -34,8 +34,11 @@
 
                /* Read more about isConfirmed, isDenied below */
                if (result.isConfirmed) {
-
-                   window.location.href='<?php echo SERVERURL ?>gestionarorden/'+ id_orden ;
+                
+                var id_result = btoa(id_orden)
+                id_result=id_result.replaceAll('=','');
+                console.log(id_result);
+                window.location.href='<?php echo SERVERURL ?>gestionarorden/'+ id_result ;
 
                }
 
