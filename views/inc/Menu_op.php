@@ -178,7 +178,7 @@
 
 
 
-
+        
 
         $.ajax({
             url: "<?php echo SERVERURL; ?>ajax/ListarmenuAjax.php",
@@ -196,5 +196,5 @@
         })
 
 
-    }, 10000);
+    }, 15000);
 </script>

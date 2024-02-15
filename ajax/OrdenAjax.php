@@ -8,18 +8,17 @@ $cons = new OrdenesController();
 
 
 // print_r($_POST);
-
 $fecha = getdate();
-if($fecha['hours'] <= 10 && $fecha['hours'] >= 7){
+if($fecha['hours'] < 23 && $fecha['hours'] >= 7 && $fecha['wday'] != 0 && $fecha['wday'] != 6){
     $validado = $cons->Validar_orden_repedita_Controller($_POST);
 if(!empty($validado)){
     $alerta=[
-        "Alerta"=>'limpiar',
-        "Titulo"=>'Error al agregar pedido',
-        "Texto"=>"No se puede solicitar mas de una comida al día. ",
+        "Alerta"=>'dialogo',
+        "Titulo"=>'Solo se puede realizar el pedido una vez al dia',
         "Icono"=>'error',
-        "URL"=>SERVERURL.'cliente/'
-      
+        "Posicion"=>'center',
+        "Boton"=> false,
+        "Tempo"=> 2500  
       ];
       echo json_encode($alerta);
          exit();
@@ -30,12 +29,12 @@ echo $cons->Orden_final_Controller($_POST,$codigo);
 }
 }else{
     $alerta=[
-                "Alerta"=>'limpiar',
-                "Titulo"=>'Error al enviar pedido',
-                "Texto"=>"Solo se podrán hacer pedidos entre las 07:00 a.m y las 10:00 a.m",
+                "Alerta"=>'dialogo',
+                "Titulo"=>'Solo se podrán hacer pedidos entre las 07:00 a.m y las 10:00 a.m',
                 "Icono"=>'error',
-                "URL"=>SERVERURL.'cliente/'
-                
+                "Posicion"=>'center',
+                "Boton"=> false,
+                "Tempo"=> 2500  
               ];
               echo json_encode($alerta);
                  exit();

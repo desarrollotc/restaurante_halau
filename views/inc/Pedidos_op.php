@@ -113,6 +113,10 @@
                 name: 'cliente'
             },
             {
+                data: 'area_usuario_orden',
+                name: 'area_usuario_orden'
+            },
+            {
                 data: 'nombre_menu',
                 name: 'nombre_menu'
             },
@@ -121,6 +125,10 @@
                 data: 'hora_pedido_orden',
                 name: 'hora_pedido_orden'
 
+            },
+            {
+                data: 'hora_plan_recogida_orden',
+                name: 'hora_plan_recogida_orden'
             },
             {
                 data: 'estado_orden',

@@ -8,10 +8,11 @@ require_once './controllers/OrdenesController.php';
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>nombre_usuario</th>
-                    <th>nombre_menu</th>
-                    <th>hora_pedido_orden</th>
-                    <th>hora_recogida_orden</th>
+                    <th>Nombre</th>
+                    <th>Menú</th>
+                    <th>Precio</th>
+                    <th>Fecha orden</th>
+                    <th>Estado</th>
                 </tr>
             </thead>
         </table>

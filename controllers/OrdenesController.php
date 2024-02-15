@@ -12,7 +12,8 @@ use PHPMailer\PHPMailer\Exception;
 
 
 class OrdenesController extends OrdenesModel
-{
+{   
+
 
     public function Listar_menu_Controller(){   
         $sqli = new OrdenesModel();
@@ -34,10 +35,16 @@ class OrdenesController extends OrdenesModel
 
             mysqli_commit($conexion);
             if($conexion){
+                $con_menu = OrdenesModel::Buscar_menu_orden_Model($datos);
+                $nom_menu = $con_menu->fetch();
                 $destinatario = $datos['correo_cliente'];
                 $asunto = "Código De Verificación";
-                $mensaje = "Prueba de envio codigo de correo.
-                            El codigo de verificacion es: " . $codigo;
+                $mensaje = "<p style='color : #6786B8; font-size : 15px;'>Gracias por usar este medio, su orden fue recibida. <br> 
+                Su pedido el dia de hoy fue: ".$nom_menu['nombre_menu']." con un costo de ".$nom_menu['precio_menu'].". <br>
+                Su código es : <b style='color : #25346D; font-size : 20px; text-decoration : underline;'> ".$codigo." </b> , con este podrá reclamar su comida.<br>
+                La hora para recoger la comida fue seleccionada para : ".$nom_menu['hora_plan_recogida_orden']."<br>
+                Si hay algún error con respecto a su orden comuniquese al numero xxxxxxxxx o al correo xxxxxxxxx<br>
+                Este correo es unicamente de envio y no se le podrá brindar ayuda por este medio si lo requiere.</p>";
                             echo $this->Enviar_correo_orden_Controller($destinatario,$asunto,$mensaje);
 
             }
@@ -50,7 +57,8 @@ class OrdenesController extends OrdenesModel
             $alerta=[
                 "Alerta"=>'limpiar',
                 "Titulo"=>'Agregado!',
-                "Texto"=>"Se ha enviado el pedido correctamente",
+                "Texto"=>"Se ha enviado el pedido correctamente.
+                            Su codigo de verificacion es: " . $codigo,
                 "Icono"=>'success' ,
                 "URL"=>SERVERURL.'cliente/'
 
@@ -224,7 +232,7 @@ class OrdenesController extends OrdenesModel
 
 
             //
-            $consulta = 'SELECT SQL_CALC_FOUND_ROWS ordenes.id_orden as id_orden, ordenes.numero_cliente_orden, usuarios.nombre_usuario as cliente, menu.nombre_menu, ordenes.hora_pedido_orden, ordenes.estado_orden, ordenes.hora_recogida_orden FROM `ordenes` JOIN `menu` ON ordenes.menu_orden = menu.id_menu JOIN usuarios ON ordenes.usuario_orden = usuarios.id_usuario WHERE ordenes.id_orden != 0
+            $consulta = 'SELECT SQL_CALC_FOUND_ROWS ordenes.id_orden as id_orden, ordenes.numero_cliente_orden, usuarios.nombre_usuario as cliente, ordenes.area_usuario_orden, menu.nombre_menu, ordenes.hora_pedido_orden,ordenes.hora_plan_recogida_orden, ordenes.estado_orden, ordenes.hora_recogida_orden FROM `ordenes` JOIN `menu` ON ordenes.menu_orden = menu.id_menu JOIN usuarios ON ordenes.usuario_orden = usuarios.id_usuario WHERE ordenes.id_orden != 0
             ' . $sql_general . ' ' . $consulta_columnas . ' ' .$acumOrdenQuery. ' LIMIT ' . $inicio . ',' . $registros;   
 
             //
@@ -232,7 +240,7 @@ class OrdenesController extends OrdenesModel
 
         } else {
             //
-            $consulta = 'SELECT SQL_CALC_FOUND_ROWS ordenes.id_orden as id_orden, ordenes.numero_cliente_orden, usuarios.nombre_usuario as cliente, menu.nombre_menu, ordenes.hora_pedido_orden, ordenes.estado_orden, ordenes.hora_recogida_orden FROM `ordenes` JOIN `menu` ON ordenes.menu_orden = menu.id_menu JOIN usuarios ON ordenes.usuario_orden = usuarios.id_usuario WHERE ordenes.id_orden != 0
+            $consulta = 'SELECT SQL_CALC_FOUND_ROWS ordenes.id_orden as id_orden, ordenes.numero_cliente_orden, usuarios.nombre_usuario as cliente, ordenes.area_usuario_orden, menu.nombre_menu, ordenes.hora_pedido_orden,ordenes.hora_plan_recogida_orden, ordenes.estado_orden, ordenes.hora_recogida_orden FROM `ordenes` JOIN `menu` ON ordenes.menu_orden = menu.id_menu JOIN usuarios ON ordenes.usuario_orden = usuarios.id_usuario WHERE ordenes.id_orden != 0
                 ' . $consulta_columnas . ' '.$acumOrdenQuery .' LIMIT ' . $inicio . ',' . $registros; 
             //
             
@@ -266,8 +274,10 @@ class OrdenesController extends OrdenesModel
                 'id_orden' => $row['id_orden'],
                 'numero_cliente_orden' => $row['numero_cliente_orden'],
                 'cliente' => $row['cliente'],
+                'area_usuario_orden' => $row['area_usuario_orden'],
                 'nombre_menu'=> $row['nombre_menu'],
                 'hora_pedido_orden'=> $row['hora_pedido_orden'],
+                'hora_plan_recogida_orden' => $row['hora_plan_recogida_orden'],
                 'estado_orden'=> $row['estado_orden'],
                 'hora_recogida_orden'=> $row['hora_recogida_orden']
             );
@@ -299,6 +309,7 @@ class OrdenesController extends OrdenesModel
                $mail->setFrom('enviadodecorreos@gmail.com','Medio de envio de correos');
                $mail->addAddress($destinatario);
                $mail->Subject = $asunto;
+               $mail->isHTML(true);
                $mail->Body    = $mensaje;
                $mail->CharSet = 'UTF-8';
                 $mail->Encoding = 'base64';
@@ -371,4 +382,37 @@ class OrdenesController extends OrdenesModel
         $resultado = $result->fetchAll();
         return $resultado;
     }
+
+    public function Enviar_correo_prueba_orden_Controller($destinatario, $asunto, $mensaje){
+        $mail = new PHPMailer (true);
+        try{
+    $mail->isSMTP();
+    $mail->SMTPSecure = "tls";
+    $mail->Port = "587";
+    $mail->Host = "smtp.gmail.com";
+    $mail->SMTPAuth = true;
+     $mail->Username = "enviadodecorreos@gmail.com"; 
+    $mail->Password = "wbsw zmfj wkge qjuf";
+
+
+    
+           $mail->setFrom('enviadodecorreos@gmail.com','Medio de envio de correos');
+           $mail->addAddress($destinatario);
+           $mail->Subject = $asunto;
+           $mail->isHTML(true);
+           $mail->Body    = $mensaje;
+           $mail->CharSet = 'UTF-8';
+            $mail->Encoding = 'base64';
+
+           $mail->send();
+        }catch(Exception $e){
+            echo 'Error al enviar el correo: ', $mail->ErrorInfo;
+        }
+}
+
+        public function Listar_areas_Controller(){
+            $sql = OrdenesModel::Listar_areas_Model()->fetchAll();
+            return $sql;
+        }
+
 }

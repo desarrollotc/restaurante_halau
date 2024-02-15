@@ -1,67 +1,5 @@
 <script>
-    //  function Botonaceptar(id_cita, nombre_paciente_orden){
-    // var lista =document.getElementById("motivo"); 
-    // console.log(lista.value);
-    // console.log(id_cita);
-    // Swal.fire({
-    //            title: 'Desea gestionar al paciente ' +  nombre_paciente_orden + '?',
-    //            showDenyButton: true,
-    //            confirmButtonText: 'Si',
-    //            denyButtonText: `No`,
-    //        }).then((result) => {
 
-    //            /* Read more about isConfirmed, isDenied below */
-    //            if (result.isConfirmed) {
-
-    //                window.location.href='<?php echo SERVERURL ?>estadosoporte/'+ id_cita + '/' + lista.value ;
-
-    //            }else{
-    //                     location.reload();
-    //         }
-
-    //        })
-
-    //  }
-    //  const ObtenerInfo = (id_orden, cliente) => {
-
-
-    //        Swal.fire({
-    //            title: 'Desea gestionar la orden del cliente ' +  cliente + '?',
-    //            showDenyButton: true,
-    //            confirmButtonText: 'Si',
-    //            denyButtonText: `No`,
-    //        }).then((result) => {
-
-    //            /* Read more about isConfirmed, isDenied below */
-    //            if (result.isConfirmed) {
-
-    //                window.location.href='<?php echo SERVERURL ?>gestionarorden/'+ id_orden ;
-
-    //            }
-
-    //        })
-
-    //     }
-    //     const Cambiarestado = (id_usuario, nombre_usuario, estado_usuario) => {
-
-
-    //         Swal.fire({
-    //             title: 'Desea cambiar el estado del usuario ' +  nombre_usuario + '?',
-    //             showDenyButton: true,
-    //             confirmButtonText: 'Si',
-    //             denyButtonText: `No`,
-    //         }).then((result) => {
-
-    //             /* Read more about isConfirmed, isDenied below */
-    //             if (result.isConfirmed) {
-
-    //                 window.location.href='<?php echo SERVERURL ?>Estado/'+ id_usuario + '/' + estado_usuario;
-
-    //             }
-
-    //         })
-
-    //      }
 
     var tabla = new DataTable('#tabla_inc', {
 
@@ -108,6 +46,10 @@
             {
                 data: 'nombre_menu',
                 name: 'nombre_menu'
+            },
+            {
+                data: 'precio_menu',
+                name: 'precio_menu'
             },
             {
                 data: 'hora_pedido_orden',

@@ -20,8 +20,10 @@ $cons2 = $cons->Codigo_orden_Controller();
                     <th>Id</th>
                     <th>Número identificación</th>
                     <th>Usuario</th>
+                    <th>Área</th>
                     <th>Menú Pedido</th>
                     <th>Hora Del Pedido</th>
+                    <th>Hora aproximada recogida</th>
                     <th>Estado</th>
                     <th>Hora De Recogida</th>
                     <th>Accion</th>

@@ -80,6 +80,14 @@ function alertas_ajax(alerta) {
             confirmButtonText: 'Aceptar',
             cancelButtonText:'Cancelar'
           })
+    }else if(alerta.Alerta==="dialogo"){
+        Swal.fire({
+            icon: alerta.Icono,
+            title: alerta.Titulo,
+            position: alerta.Posicion,
+            showConfirmButton: alerta.Boton,
+            timer: alerta.Tempo
+          })
     }else if(alerta.Alerta==="recargar"){
         Swal.fire({
             icon: alerta.Icono,

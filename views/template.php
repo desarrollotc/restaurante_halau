@@ -41,7 +41,7 @@
     include "./views/inc/Navbar.php";
     require_once $View;
     include "./views/inc/Scripts.php";
-    //include "./views/inc/Citaerrores_op.php";
+    include "./views/inc/Facturacion_op.php";
 }elseif(end($elem_ultimo_vista)=='pedido-view.php'){
     include "./views/inc/Navbar.php";
     require_once $View;
@@ -67,6 +67,9 @@
     require_once $View;
     include "./views/inc/Scripts.php";
     include "./views/inc/Cliente_op.php";
+}elseif(end($elem_ultimo_vista)=='Excel-view.php'){
+    require_once $View;
+    include "./views/inc/Scripts.php";
 }elseif(end($elem_ultimo_vista)=='cambioestado-view.php'){
     require_once $View;
 }elseif(end($elem_ultimo_vista)=='editarmenu-view.php'){

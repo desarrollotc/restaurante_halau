@@ -144,7 +144,7 @@ class ClienteController extends ClienteModel
     
     
                 //
-                $consulta = 'SELECT SQL_CALC_FOUND_ROWS ordenes.id_orden, usuarios.nombre_usuario, menu.nombre_menu, ordenes.hora_pedido_orden, ordenes.hora_recogida_orden FROM ordenes JOIN menu ON ordenes.menu_orden = menu.id_menu JOIN usuarios ON ordenes.usuario_orden = usuarios.id_usuario WHERE ordenes.usuario_orden = ' . $_SESSION['id_spm']
+                $consulta = 'SELECT SQL_CALC_FOUND_ROWS ordenes.id_orden, usuarios.nombre_usuario, menu.nombre_menu, menu.precio_menu, ordenes.hora_pedido_orden, ordenes.hora_recogida_orden FROM ordenes JOIN menu ON ordenes.menu_orden = menu.id_menu JOIN usuarios ON ordenes.usuario_orden = usuarios.id_usuario WHERE ordenes.usuario_orden = ' . $_SESSION['id_spm']
                  . $sql_general . ' ' . $consulta_columnas . ' ' .$acumOrdenQuery. ' LIMIT ' . $inicio . ',' . $registros;   
     
                 //
@@ -152,7 +152,7 @@ class ClienteController extends ClienteModel
     
             } else {
                 //
-                $consulta = 'SELECT SQL_CALC_FOUND_ROWS ordenes.id_orden, usuarios.nombre_usuario, menu.nombre_menu, ordenes.hora_pedido_orden, ordenes.hora_recogida_orden FROM ordenes JOIN menu ON ordenes.menu_orden = menu.id_menu JOIN usuarios ON ordenes.usuario_orden = usuarios.id_usuario WHERE ordenes.usuario_orden = ' . $_SESSION['id_spm']
+                $consulta = 'SELECT SQL_CALC_FOUND_ROWS ordenes.id_orden, usuarios.nombre_usuario, menu.nombre_menu,menu.precio_menu, ordenes.hora_pedido_orden, ordenes.hora_recogida_orden FROM ordenes JOIN menu ON ordenes.menu_orden = menu.id_menu JOIN usuarios ON ordenes.usuario_orden = usuarios.id_usuario WHERE ordenes.usuario_orden = ' . $_SESSION['id_spm']
                      . $consulta_columnas . ' '.$acumOrdenQuery .' LIMIT ' . $inicio . ',' . $registros; 
                 //
                 
@@ -186,6 +186,7 @@ class ClienteController extends ClienteModel
                     'id_orden' => $row['id_orden'],
                     'nombre_usuario' => $row['nombre_usuario'],
                     'nombre_menu'=> $row['nombre_menu'],
+                    'precio_menu'=> $row['precio_menu'],
                     'hora_pedido_orden'=> $row['hora_pedido_orden'],
                     'hora_recogida_orden'=> $row['hora_recogida_orden']
                 );

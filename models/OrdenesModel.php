@@ -13,10 +13,12 @@ class OrdenesModel extends MainModel
 
     protected static function Agregar_orden_Model($datos,$codigo)
     {
-        $sql = MainModel::conectar()->prepare("INSERT INTO ordenes(numero_cliente_orden,usuario_orden, menu_orden,codigo_verificacion_orden) VALUES (:numero_cliente_orden,:usuario_orden, :menu_orden,:codigo_verificacion_orden)");
+        $sql = MainModel::conectar()->prepare("INSERT INTO ordenes(numero_cliente_orden,usuario_orden,area_usuario_orden,hora_plan_recogida_orden,menu_orden,codigo_verificacion_orden) VALUES (:numero_cliente_orden,:usuario_orden, :area_usuario_orden, :hora_plan_recogida_orden, :menu_orden,:codigo_verificacion_orden)");
         $sql->bindParam(":numero_cliente_orden", $datos['numero_cliente_orden']);
         $sql->bindParam(":usuario_orden", $datos['id_usuario']);
         $sql->bindParam(":menu_orden", $datos['menu_orden']);
+        $sql->bindParam(":hora_plan_recogida_orden", $datos['hora_recogida_orden']);
+        $sql->bindParam(":area_usuario_orden", $datos['area_orden']);
         $sql->bindParam(":codigo_verificacion_orden", $codigo);
         return $sql;
     }
@@ -59,6 +61,19 @@ class OrdenesModel extends MainModel
         $sql->bindParam(":fecha_orden", $fecha_actual);
          return $sql;
 
+    }
+
+    protected static function Buscar_menu_orden_Model($datos){
+        $sql = MainModel::conectar()->prepare("SELECT menu.nombre_menu, menu.precio_menu, ordenes.hora_plan_recogida_orden FROM `ordenes` JOIN menu ON ordenes.menu_orden = menu.id_menu WHERE menu.id_menu = :id_menu LIMIT 1");
+        $sql->bindParam(":id_menu",$datos['menu_orden']);
+        $sql->execute();
+        return $sql;
+    }
+
+    protected static function Listar_areas_Model(){
+        $sql = MainModel::conectar()->prepare("SELECT * FROM area_menu");
+        $sql->execute();
+        return $sql;
     }
 
 }
