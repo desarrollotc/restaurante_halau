@@ -89,7 +89,8 @@ body {
 
 .btnClose {
     height: 45px;
-    background-color: #25346D;
+    color: #fff;
+    background-color: #25346D !important ;
     font-size: 18px;
 }
 
@@ -183,4 +184,25 @@ body {
 
 .GestionOrden > .btnClose{
     width: 40% !important;
+}
+
+.mTop20{
+    margin-top: 20px !important;
+    font-size: 20px !important;
+}
+
+.iconDownload{
+    width: 30px;
+    height: 30px;
+    background-image: url(../img/download-icon.png);
+    background-size: contain;
+    border: none !important;
+}
+
+.iconDownload:hover{
+    background-image: url(../img/download-icon-active.png);
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    border: none !important;
 }
