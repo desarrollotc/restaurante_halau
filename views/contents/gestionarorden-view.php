@@ -17,7 +17,7 @@ if(!empty($cons2)){ ?>
       <label for="nombre_menu">Pedido Cliente</label>
       <input type="text" class="form-control" id="nombre_menu" name="nombre_menu" aria-describedby="emailHelp" value="<?php print $cons2['nombre_menu']; ?>" placeholder="Enter email" readonly>
       <label for="hora_pedido_orden">Hora Pedido</label>
-      <input type="datetime-local" class="form-control" id="hora_pedido_orden" name="hora_pedido_orden" aria-describedby="emailHelp" value="<?php print $cons2['hora_pedido_orden']; ?>" placeholder="Enter email" readonly>
+      <input type="date" class="form-control" id="hora_pedido_orden" name="hora_pedido_orden" aria-describedby="emailHelp" value="<?php print $cons2['hora_pedido_orden']; ?>" placeholder="Enter email" readonly>
       <input type="hidden" class="form-control" id="id_orden" name="id_orden" value="<?php print $cons2['id_orden']; ?>">
       <input type="hidden" class="form-control" id="numero_cliente_orden" name="numero_cliente_orden" value="<?php print $cons2['numero_cliente_orden']; ?>">
       <label for="exampleInputPassword1">Código de la orden</label>

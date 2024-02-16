@@ -14,6 +14,7 @@
                             <input type="date" class="form-control"  id="fecha_fin" value="" >
    
                             <button type="button" id="generar_excel" class="btn bg-primary">Generar Excel</button>
+                            <button type="button" onclick="Pruebasweet()" id="prueba" class="btn bg-primary">:D</button>
     </div>
   </div>
 </form>

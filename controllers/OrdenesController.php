@@ -23,59 +23,46 @@ class OrdenesController extends OrdenesModel
 
 
     public function Orden_final_Controller($datos,$codigo){
-        $conexion = mysqli_connect("localhost", "root", "", "drestaurante");
-        mysqli_begin_transaction($conexion);
-
-        try{
-            $query_insertar = OrdenesController::Agregar_orden_Model($datos,$codigo);
-            $query_insertar->execute();
-            
-            $query_actualizar = OrdenesController::Actualizar_cantidad_menu_Model($datos);
-            $query_actualizar->execute();
-
-            mysqli_commit($conexion);
-            if($conexion){
-                $con_menu = OrdenesModel::Buscar_menu_orden_Model($datos);
-                $nom_menu = $con_menu->fetch();
-                $destinatario = $datos['correo_cliente'];
-                $asunto = "Código De Verificación";
-                $mensaje = "<p style='color : #6786B8; font-size : 15px;'>Gracias por usar este medio, su orden fue recibida. <br> 
-                Su pedido el dia de hoy fue: ".$nom_menu['nombre_menu']." con un costo de ".$nom_menu['precio_menu'].". <br>
-                Su código es : <b style='color : #25346D; font-size : 20px; text-decoration : underline;'> ".$codigo." </b> , con este podrá reclamar su comida.<br>
-                La hora para recoger la comida fue seleccionada para : ".$nom_menu['hora_plan_recogida_orden']."<br>
-                Si hay algún error con respecto a su orden comuniquese al numero xxxxxxxxx o al correo xxxxxxxxx<br>
-                Este correo es unicamente de envio y no se le podrá brindar ayuda por este medio si lo requiere.</p>";
-                            echo $this->Enviar_correo_orden_Controller($destinatario,$asunto,$mensaje);
-
+        $cons = OrdenesModel::Validar_cantidad_menu_Model($datos);
+        if($cons->rowCount() > 0){
+            $cons2 = $cons->fetch();
+            $precio = $cons2['precio_menu'];
+            if($datos['menu_orden'] == 1){
+             $ptotal = $precio - 6.000;
+            }else{
+                $ptotal = $precio - 3.000;
             }
-        }catch(Exception $e){
-            mysqli_rollback($conexion);
-            echo "Error " . $e->getMessage();
-        }  
-          mysqli_close($conexion);
-        if($query_insertar->rowCount()>0 && $query_actualizar->rowCount()>0){
-            $alerta=[
-                "Alerta"=>'limpiar',
-                "Titulo"=>'Agregado!',
-                "Texto"=>"Se ha enviado el pedido correctamente.
-                            Su codigo de verificacion es: " . $codigo,
-                "Icono"=>'success' ,
-                "URL"=>SERVERURL.'cliente/'
-
-              ]; 
+            $conexion = mysqli_connect("localhost", "root", "", "drestaurante");
+            mysqli_begin_transaction($conexion);
+    
+            try{
+                $query_insertar = OrdenesController::Agregar_orden_Model($datos,$codigo,$ptotal);
+                $query_insertar->execute();
+                
+                
+                $query_actualizar = OrdenesController::Actualizar_cantidad_menu_Model($datos);
+                $query_actualizar->execute();
+    
+                mysqli_commit($conexion);
+            }catch(Exception $e){
+                mysqli_rollback($conexion);
+                echo "Error " . $e->getMessage();
+            }  
+              mysqli_close($conexion); 
+              if($conexion){
+                $result = true;
+              }else{
+                $result = false;
+              } 
         }else{
-            $alerta=[
-                "Alerta"=>'simple',
-                "Titulo"=>'No se ha detectado cambios!',
-                "Texto"=>"No se ha editado",
-                "Icono"=>'info'
 
-              ]; 
+            $result = false;
         }
 
-    echo json_encode($alerta);
-    
 
+    return $result;
+    
+        
     }
 
     public function Listar_ordenes_Controller($inicio, $registros, $busqueda, $draw, $columnas, $orden){
@@ -412,6 +399,11 @@ class OrdenesController extends OrdenesModel
 
         public function Listar_areas_Controller(){
             $sql = OrdenesModel::Listar_areas_Model()->fetchAll();
+            return $sql;
+        }
+
+        public function buscar_menu_orden_Controller($datos){
+            $sql = OrdenesModel::Buscar_menu_orden_Model($datos)->fetchAll();
             return $sql;
         }
 

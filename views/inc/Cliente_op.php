@@ -48,8 +48,8 @@
                 name: 'nombre_menu'
             },
             {
-                data: 'precio_menu',
-                name: 'precio_menu'
+                data: 'precio_menu_orden',
+                name: 'precio_menu_orden'
             },
             {
                 data: 'hora_pedido_orden',

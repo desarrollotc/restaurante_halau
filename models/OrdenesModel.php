@@ -11,12 +11,13 @@ class OrdenesModel extends MainModel
         return $sql;
     }
 
-    protected static function Agregar_orden_Model($datos,$codigo)
+    protected static function Agregar_orden_Model($datos,$codigo,$dto)
     {
-        $sql = MainModel::conectar()->prepare("INSERT INTO ordenes(numero_cliente_orden,usuario_orden,area_usuario_orden,hora_plan_recogida_orden,menu_orden,codigo_verificacion_orden) VALUES (:numero_cliente_orden,:usuario_orden, :area_usuario_orden, :hora_plan_recogida_orden, :menu_orden,:codigo_verificacion_orden)");
+        $sql = MainModel::conectar()->prepare("INSERT INTO ordenes(numero_cliente_orden,usuario_orden,area_usuario_orden,hora_plan_recogida_orden,menu_orden,precio_menu_orden,codigo_verificacion_orden) VALUES (:numero_cliente_orden,:usuario_orden, :area_usuario_orden, :hora_plan_recogida_orden, :menu_orden,:precio_menu_orden,:codigo_verificacion_orden)");
         $sql->bindParam(":numero_cliente_orden", $datos['numero_cliente_orden']);
         $sql->bindParam(":usuario_orden", $datos['id_usuario']);
         $sql->bindParam(":menu_orden", $datos['menu_orden']);
+        $sql->bindParam(":precio_menu_orden", $dto);     
         $sql->bindParam(":hora_plan_recogida_orden", $datos['hora_recogida_orden']);
         $sql->bindParam(":area_usuario_orden", $datos['area_orden']);
         $sql->bindParam(":codigo_verificacion_orden", $codigo);
@@ -72,6 +73,13 @@ class OrdenesModel extends MainModel
 
     protected static function Listar_areas_Model(){
         $sql = MainModel::conectar()->prepare("SELECT * FROM area_menu");
+        $sql->execute();
+        return $sql;
+    }
+
+    protected static function Validar_cantidad_menu_Model($datos){
+        $sql = MainModel::conectar()->prepare("SELECT precio_menu FROM `menu` WHERE id_menu = :id_menu AND cantidad_menu != 0");
+        $sql->bindParam(":id_menu",$datos['menu_orden']);
         $sql->execute();
         return $sql;
     }

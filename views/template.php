@@ -69,7 +69,7 @@
     include "./views/inc/Cliente_op.php";
 }elseif(end($elem_ultimo_vista)=='Excel-view.php'){
     require_once $View;
-    include "./views/inc/Scripts.php";
+    // include "./views/inc/Scripts.php";
 }elseif(end($elem_ultimo_vista)=='cambioestado-view.php'){
     require_once $View;
 }elseif(end($elem_ultimo_vista)=='editarmenu-view.php'){
