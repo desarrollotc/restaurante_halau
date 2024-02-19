@@ -54,13 +54,21 @@ class MenuController extends MenuModel
     $sql->execute();
     if($sql->rowCount() == 1){
         $alerta=[
-            "Alerta"=>'limpiar',
-            "Titulo"=>'Actualizado!',
-            "Texto"=>"Se ha editado la información correctamente.",
-            "Icono"=>'success' ,
-            "URL"=>SERVERURL.'menu/'
-
+            // "Alerta"=>'limpiar',
+            // "Titulo"=>'Actualizado!',
+            // "Texto"=>"Se ha editado la información correctamente.",
+            // "Icono"=>'success' ,
+            // "URL"=>SERVERURL.'menu/'
+            "Alerta"=>'dialogo',
+            "Titulo"=>'Información editada.',
+            "Icono"=>'success',
+            "Posicion"=>'center',
+            "Boton"=> false,
+            "Tempo"=> 2500,
+            "Progress"=> true,
+            "URL"=> SERVERURL.'menu/'
           ];
+          
     }else{
         $alerta=[
             "Alerta"=>'limpiar',

@@ -86,7 +86,11 @@ function alertas_ajax(alerta) {
             title: alerta.Titulo,
             position: alerta.Posicion,
             showConfirmButton: alerta.Boton,
-            timer: alerta.Tempo
+            timer: alerta.Tempo,
+            timerProgressBar: alerta.Progress,
+            willClose: ()=> {
+                window.location.href = alerta.URL;
+            }
           })
     }else if(alerta.Alerta==="recargar"){
         Swal.fire({

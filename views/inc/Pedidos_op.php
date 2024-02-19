@@ -161,7 +161,7 @@
                     if(row.estado_orden == 2){
                     return `<button  type="button" class="btn btn-primary" onclick="ObtenerInfo('` + row.id_orden + `','` + row.cliente + `') ">Gestionar</button>`;
                     }else{
-                    return `<button  type="button" class="btn btn-primary" onclick="ObtenerInfo('` + row.id_orden + `','` + row.cliente + `') disabled">Gestionado</button>`;
+                    return `<button  type="button" class="btn btn-success" onclick="ObtenerInfo('` + row.id_orden + `','` + row.cliente + `') disabled">Gestionado</button>`;
                     }
 
                 }
