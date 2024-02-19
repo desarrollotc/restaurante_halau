@@ -30,6 +30,32 @@ if(isset($_POST['draw'])){
 
     }
 }else{
-    echo $resultado = $insususarios->Actualizar_menu_Controller($_POST);
-
+  $precio_str = $_POST['precio_menu'];
+  $num = strpos($precio_str,'.');
+  if($num){
+    $num_final = explode(".",$precio_str);
+    if(strlen($num_final[1]) == 3){
+      echo $resultado = $insususarios->Actualizar_menu_Controller($_POST,$precio_str);
+    }else{
+      $alerta=[
+        "Alerta"=>'dialogob',
+        "Titulo"=>'Ingrese un valor valido',
+        "Icono"=>'error',
+        "Posicion"=>'center',
+        "Boton"=> false,
+        "Tempo"=> 2500,
+        "Progress"=> true
+      ];
+      echo json_encode($alerta);
+      exit();
+    }
+  }else{
+    $conv_int  = intval($precio_str,10);
+  if(is_int($conv_int)){
+    $precio_final = number_format($conv_int,0,",",".");
+    echo $resultado = $insususarios->Actualizar_menu_Controller($_POST,$precio_final);
+  }else{
+    echo "error";
+  }
+}
 }

@@ -13,7 +13,7 @@ if(!empty($cons2)){ ?>
       <label for="cliente">Nombre Menú</label>
       <input type="text" class="form-control" id="nombre_menu" name="nombre_menu" aria-describedby="emailHelp" value="<?php print $cons2['nombre_menu']; ?>" placeholder="Enter email">
       <label for="nombre_menu">Precio Menú</label>
-      <input type="text" class="form-control" id="precio_menu" name="precio_menu" aria-describedby="emailHelp" value="<?php print $cons2['precio_menu']; ?>" placeholder="Enter email">
+    <input type="text" pattern="[0-9]*\.?[0-9]*" class="form-control" id="precio_menu" name="precio_menu" aria-describedby="emailHelp" value="<?php print $cons2['precio_menu']; ?>" placeholder="Enter email">
       <label for="hora_pedido_orden">Cantidad</label>
       <input type="number" class="form-control" id="cantidad_menu" name="cantidad_menu" aria-describedby="emailHelp" value="<?php print $cons2['cantidad_menu']; ?>" placeholder="Enter email">
       <input type="hidden" class="form-control" id="estado_menu" name="estado_menu" value="<?php print $cons2['estado_menu']; ?>">

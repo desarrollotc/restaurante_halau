@@ -92,6 +92,15 @@ function alertas_ajax(alerta) {
                 window.location.href = alerta.URL;
             }
           })
+    }else if(alerta.Alerta==="dialogob"){
+        Swal.fire({
+            icon: alerta.Icono,
+            title: alerta.Titulo,
+            position: alerta.Posicion,
+            showConfirmButton: alerta.Boton,
+            timer: alerta.Tempo,
+            timerProgressBar: alerta.Progress,
+          })
     }else if(alerta.Alerta==="recargar"){
         Swal.fire({
             icon: alerta.Icono,

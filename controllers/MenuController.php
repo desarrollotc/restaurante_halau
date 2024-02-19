@@ -49,16 +49,11 @@ class MenuController extends MenuModel
 
    }
 
-   public function Actualizar_menu_Controller($datos){
-    $sql = MenuModel::Actualizar_menu_Model($datos);
+   public function Actualizar_menu_Controller($datos,$precio){
+    $sql = MenuModel::Actualizar_menu_Model($datos,$precio);
     $sql->execute();
     if($sql->rowCount() == 1){
         $alerta=[
-            // "Alerta"=>'limpiar',
-            // "Titulo"=>'Actualizado!',
-            // "Texto"=>"Se ha editado la información correctamente.",
-            // "Icono"=>'success' ,
-            // "URL"=>SERVERURL.'menu/'
             "Alerta"=>'dialogo',
             "Titulo"=>'Información editada.',
             "Icono"=>'success',

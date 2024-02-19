@@ -17,10 +17,10 @@ class MenuModel extends MainModel
         return $sql;
     }
 
-    protected static function Actualizar_menu_Model($datos){
+    protected static function Actualizar_menu_Model($datos,$precio){
         $sql = MainModel::conectar()->prepare("UPDATE menu SET nombre_menu = :nombre_menu, precio_menu = :precio_menu, cantidad_menu = :cantidad_menu WHERE id_menu = :id_menu");
         $sql->bindParam("nombre_menu", $datos['nombre_menu']);
-        $sql->bindParam("precio_menu", $datos['precio_menu']);
+        $sql->bindParam("precio_menu", $precio);
         $sql->bindParam("cantidad_menu", $datos['cantidad_menu']);
         $sql->bindParam("id_menu", $datos['id_menu']);
         return $sql;

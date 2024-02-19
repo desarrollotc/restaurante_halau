@@ -18,7 +18,8 @@ if(!empty($validado)){
         "Icono"=>'error',
         "Posicion"=>'center',
         "Boton"=> false,
-        "Tempo"=> 2500  
+        "Tempo"=> 2500,
+        "URL"=>SERVERURL.'cliente/'
       ];
       echo json_encode($alerta);
          exit();
